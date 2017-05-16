@@ -11,7 +11,7 @@ public class InputGenerator {
 	}
 	
 	public InputGenerator(){
-		int n = 10;
+		int n = 100;
 		int alg = 1;
 		try {
 			writeInput(n,alg);
