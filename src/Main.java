@@ -30,7 +30,7 @@ public class Main {
 	 */
 	public Main(){
 		long starttime = System.currentTimeMillis();
-		File file = new File("C:\\Users\\willem\\Documents\\tmi\\MeetSghlKunde");
+		File file = new File("C:\\Users\\willem\\Documents\\Wens\\WenS");
 		setCirkels(this.readInput(file));
 		setAlg(1);
 		run();
