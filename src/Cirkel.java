@@ -20,7 +20,11 @@ public class Cirkel {
 			return Math.sqrt(Math.pow(Math.abs(punt2.getX() - punt1.getX()),2) + Math.pow(punt2.getY() - punt1.getY(),2));
 		}
 		
-		//snijpunten berekenen
+		/**
+		 * calculates the intersectionpoints of 2 cirkels
+		 * @param cirkel
+		 * @return
+		 */
 		public Punt[] snijpuntAndereCirkel(Cirkel cirkel){
 			//afstand middelpunten
 			double d = distancepoints(getMiddelpunt(), cirkel.getMiddelpunt());
