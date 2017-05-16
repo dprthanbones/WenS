@@ -1,11 +1,7 @@
-import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.nio.file.FileSystems;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -16,10 +12,9 @@ public class Main {
 	private ArrayList<Cirkel> cirkels = new ArrayList<Cirkel>();
 	private ArrayList<Punt> snijpunten = new ArrayList<Punt>();
 	private boolean error = false;
-	private long ExecutionTime;
 	
 	/**
-	/*	Run
+	/*	Runs application
 	 */
 	public static void main(String[] args){
 		new Main();
@@ -31,38 +26,57 @@ public class Main {
 	public Main(){
 		File file = new File(System.getProperty("user.dir") + File.separator + "input.txt");
 		setCirkels(this.readInput(file));
-		setAlg(1);
 		run();
-		System.out.println(getSnijpunten().size());
-		for(int i = 0; i < getSnijpunten().size(); i++){
-			System.out.println("snijpunt: " + i);
-			System.out.println("puntX: " + getSnijpunten().get(i).getX());
-			System.out.println("puntY: " + getSnijpunten().get(i).getY());
-			System.out.println("------------------------");
+		try {
+			writeOutput();
+		} catch (IOException e) {
+			e.printStackTrace();
 		}
-		//writeOutput();
 	}
 	
+	/**
+	 * sets the type of algorithm to use
+	 * @param algorithm1
+	 */
 	public void setAlg(int algorithm1){
 		this.algoritme = algorithm1;
 	}
 	
+	/**
+	 * returns the type of algorithm (1,2 or 3)
+	 * @return
+	 */
 	public int getAlg(){
 		return this.algoritme;
 	}
 	
+	/**
+	 * sets the cirkels to evaluate
+	 * @param cirkels
+	 */
 	private void setCirkels(ArrayList<Cirkel> cirkels) {
 		this.cirkels = cirkels;
 	}
 
+	/**
+	 * return the cirkels to evaluate
+	 * @return
+	 */
 	public ArrayList<Cirkel> getCirkels() {
 		return cirkels;
 	}
 	
+	/**
+	 * adds a cirkel to the list of cirkels to evaluate
+	 * @param cirkel
+	 */
 	public void addCirkel(Cirkel cirkel){
 		this.cirkels.add(cirkel);
 	}
 
+	/**
+	 * creates a new algorithm according to the desired algorithm
+	 */
 	public void run(){
 		switch (getAlg()){
 		case 1:
@@ -77,26 +91,45 @@ public class Main {
 			Algorithm alg3 = new Algorithm3(getCirkels(), this);
 			setAlgorithm(alg3);
 			break;
+		default:
+			this.error = true;
+			break;
 		}
 	}
 	
+	/**
+	 * sets the algorithm which is used
+	 * @param algorithm1
+	 */
 	public void setAlgorithm(Algorithm algorithm1){
 		this.algo = algorithm1;
 	}
 	
+	/**
+	 * returns the used algorithm
+	 * @return
+	 */
 	public Algorithm getAlgoritme(){
 		return this.algo;
 	}
 	
+	/**
+	 * adds an intersectionpoint to the list of intersectionpoints
+	 * @param snijpunten
+	 */
 	public void addSnijpunten(Punt snijpunten){	
 		getSnijpunten().add(snijpunten);
 	}
 	
+	/**
+	 * returns the list of intersectionpoints
+	 * @return
+	 */
 	public ArrayList<Punt> getSnijpunten(){
 		return this.snijpunten;
 	}
 	
-	/*
+	/**
 	 * reads Input.txt file and casts it to circles
 	 */
 	public ArrayList<Cirkel> readInput(File file){
@@ -106,18 +139,22 @@ public class Main {
 		try {
 			scan = new Scanner(file);
 			setAlg(Integer.parseInt(scan.nextLine()));
-			//TODO kan veel makelijkere
 			int amountOfCirkels = Integer.parseInt(scan.nextLine());
 			for(int i = 0; i < amountOfCirkels; i++){
 				Cirkel cirkel = castToCirkel(scan.nextLine());
 				cirkels.add(cirkel);
 			}return(cirkels);
 		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
+			System.out.println("File not found");
 			e.printStackTrace();
 		}return cirkels;
 	}
 	
+	/**
+	 * casts a string to a cirkel
+	 * @param cirkel
+	 * @return
+	 */
 	public Cirkel castToCirkel(String cirkel){
 		String[] parts = cirkel.split(" ");
 		Punt middelpunt = new Punt(Double.parseDouble(parts[0]), Double.parseDouble(parts[1]));
@@ -125,24 +162,29 @@ public class Main {
 		return castedCirkel;
 	}
 	
-	/*public void writeOutput(){
-		//TODO functie schrijven die ouput in een text bestand zet
-		try{
-		    PrintWriter writer = new PrintWriter("the-file-name.txt", "UTF-8");
-		    if(this.error == true)
-		    	writer.println("Dit algoritme is niet geimplementeerd");
-		    else{
-		    writer.println(this.snijpunten.size());
-		    for(int i = 0; i < this.snijpunten.size(); i=1){
-		    	writer.println(this.snijpunten.get(i).getX() + "" + this.snijpunten.get(i).getY());
-		    }
-		    writer.println("");
-		    writer.println(ExecutionTime);
-		    writer.close();
-		    }
-		} catch (IOException e) {
-		   //TODO exception als er iets fout gaat
+	/**
+	 * creates and writes an output file
+	 * @throws IOException
+	 */
+	public void writeOutput() throws IOException{
+		FileWriter out;
+		try {
+			out = new FileWriter(System.getProperty("user.dir") + File.separator + "output.txt");
+			if (this.error) out.write("Dit algoritme is niet geimplementeerd");
+			else{
+				out.write(String.valueOf(getSnijpunten().size()));
+				out.write(System.lineSeparator());
+				for(int i = 0; i < getSnijpunten().size(); i++){
+					out.write(String.valueOf(getSnijpunten().get(i).getX()) + " " + String.valueOf(getSnijpunten().get(i).getY()));
+					out.write(System.lineSeparator());
+				}
+				out.write(System.lineSeparator());
+				out.write(String.valueOf(getAlgoritme().getTime()));
+			}
+			out.flush();
+			out.close();	
+			} catch (FileNotFoundException e) {
+				e.printStackTrace();
+			}
 		}
-	}*/
-	
 }

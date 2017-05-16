@@ -1,7 +1,7 @@
 public abstract class Algorithm {
 
 	private Main Main;
-	private long time;
+	private long time = 0;
 
 	public Algorithm(Main main){
 		setMain(main);
