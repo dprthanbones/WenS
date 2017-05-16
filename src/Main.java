@@ -29,8 +29,7 @@ public class Main {
 	 * constructor
 	 */
 	public Main(){
-		long starttime = System.currentTimeMillis();
-		File file = new File("C:\\Users\\willem\\Documents\\Wens\\WenS");
+		File file = new File(System.getProperty("user.dir") + File.separator + "input.txt");
 		setCirkels(this.readInput(file));
 		setAlg(1);
 		run();
@@ -41,9 +40,7 @@ public class Main {
 			System.out.println("puntY: " + getSnijpunten().get(i).getY());
 			System.out.println("------------------------");
 		}
-		ExecutionTime = System.currentTimeMillis() - starttime;
-		System.out.println("time: " + ExecutionTime + "Ms");
-		writeOutput();
+		//writeOutput();
 	}
 	
 	public void setAlg(int algorithm1){
@@ -128,7 +125,7 @@ public class Main {
 		return castedCirkel;
 	}
 	
-	public void writeOutput(){
+	/*public void writeOutput(){
 		//TODO functie schrijven die ouput in een text bestand zet
 		try{
 		    PrintWriter writer = new PrintWriter("the-file-name.txt", "UTF-8");
@@ -146,6 +143,6 @@ public class Main {
 		} catch (IOException e) {
 		   //TODO exception als er iets fout gaat
 		}
-	}
+	}*/
 	
 }
