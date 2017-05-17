@@ -1,20 +1,17 @@
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.List;
 
 public class Algorithm2 extends Algorithm {
 
-	ArrayList<Cirkel> active;
-	ArrayList<Cirkel> event;
+	public ArrayList<Cirkel> active;
+	public ArrayList<Cirkel> event;
 	
 	public Algorithm2(ArrayList<Cirkel> cirkels, Main main) {
-		super(main);
-		ArrayList<Cirkel> active = new ArrayList<Cirkel>();
+		super(main);	
+		this.active = new ArrayList<Cirkel>();
 		ArrayList<Event> event = getEvents(cirkels);
-		System.out.println("start search");
 		search(event);
-		// TODO Auto-generated constructor stub
 	}
 	
 	class Event{
@@ -68,8 +65,8 @@ public class Algorithm2 extends Algorithm {
 	}
 	
 	private void search(ArrayList<Event> events) {
+		long startTime = System.nanoTime();
 		for(Event temp: events){
-			System.out.println(this.active.size());
 			if(temp.getLinks() == true){
 				for(Cirkel cirk:this.active){
 					addSnijnpunt(temp.getCirkel(),cirk);
@@ -77,14 +74,10 @@ public class Algorithm2 extends Algorithm {
 				this.active.add(temp.getCirkel());
 			}
 			else{
-				try{
-					this.active.remove(temp.getCirkel());
-					//System.out.println("succes");
-				}catch (NullPointerException e){
-					//System.out.println("error");
-				}
-				
+				this.active.remove(temp.getCirkel());	
 			}
 		}
+		long endTime = System.nanoTime();
+		setTime((endTime - startTime)/1000);
 	}
-}	
+}
