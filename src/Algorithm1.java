@@ -15,6 +15,6 @@ public class Algorithm1 extends Algorithm{
 			}
 		}	
 		long endTime = System.nanoTime();
-		setTime((endTime - startTime)/1000);
+		setTime((endTime - startTime)/1000000);
 	}	
 }

@@ -78,6 +78,6 @@ public class Algorithm2 extends Algorithm {
 			}
 		}
 		long endTime = System.nanoTime();
-		setTime((endTime - startTime)/1000);
+		setTime((endTime - startTime)/1000000);
 	}
 }
