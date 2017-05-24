@@ -29,7 +29,7 @@ public class Cirkel {
 			//afstand middelpunten
 			double d = distancepoints(getMiddelpunt(), cirkel.getMiddelpunt());
 			//geen snijpunten
-			if(d > getStraal() + cirkel.getStraal()) return new Punt[0];
+			if(d > Math.abs(getStraal() + cirkel.getStraal())) return new Punt[0];
 	
 			double x_1 = getMiddelpunt().getX();
 			double y_1 = getMiddelpunt().getY();
@@ -40,7 +40,7 @@ public class Cirkel {
 			if (x_1 == x_2 && y_1 == y_2 && getStraal() == cirkel.getStraal()) return new Punt[0];
 			
 			double d_1 = (Math.pow(getStraal(), 2) - Math.pow(cirkel.getStraal(), 2) + Math.pow(d, 2)) / (2*d);
-			double h = Math.sqrt(Math.abs(Math.pow(getStraal(), 2) - Math.pow(d_1, 2)));
+			double h = Math.sqrt(Math.pow(getStraal(), 2) - Math.pow(d_1, 2));
 			double X_3 = x_1 + (d_1*(x_2 - x_1)) / d;
 			double Y_3 = y_1 + (d_1*(y_2 - y_1)) / d;
 			
