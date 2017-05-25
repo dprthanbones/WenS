@@ -7,7 +7,7 @@ import java.util.Random;
 public class InputGenerator {
 
 	public static void main(String[] args){
-		new InputGenerator(10, 1);
+		new InputGenerator(10, 3);
 	}
 	
 	public InputGenerator(int n, int alg){

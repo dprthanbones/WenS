@@ -34,21 +34,14 @@ class Draw extends JFrame {
 	  
       for (Cirkel circle: cirkels) {
           if (circle != null)
-              g.drawOval(
-                      (int)((circle.getMiddelpunt().getX()+ xOffset - circle.getStraal())*scaleFactor),
-                      (int)((circle.getMiddelpunt().getY()+ yOffset - circle.getStraal())*scaleFactor),
-                      (int)(circle.getStraal()*2.0*scaleFactor),
-                      (int)(circle.getStraal()*2.0*scaleFactor)
-              );
+              g.drawOval((int)((circle.getMiddelpunt().getX()+ xOffset - circle.getStraal())*scaleFactor), (int)((circle.getMiddelpunt().getY()+ yOffset - circle.getStraal())*scaleFactor),
+                      (int)(circle.getStraal()*2.0*scaleFactor), (int)(circle.getStraal()*2.0*scaleFactor));
       }
       for (Punt snijpunt: Punten) {
           if (snijpunt != null) {
               g.setColor(Color.RED);
               g.fillOval(
-                      (int)(((snijpunt.getX()+ xOffset)*scaleFactor) - radius),
-                      (int)(((snijpunt.getY()+ yOffset)*scaleFactor) - radius),
-                      (int)(radius*2.0), (int)(radius*2.0)
-              );
+                      (int)(((snijpunt.getX()+ xOffset)*scaleFactor) - radius), (int)(((snijpunt.getY()+ yOffset)*scaleFactor) - radius), (int)(radius*2.0), (int)(radius*2.0));
           }
       }
   }
